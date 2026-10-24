@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Intelligence Hub — Dashboard Admin</title>
+  <meta name="theme-color" content="#b40f55">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://script.google.com">
+  <link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,0..1,0&display=block">
+  <link rel="stylesheet" href="css/admin.css?v=1.0.0">
+</head>
+<body>
+  <!-- LOGIN -->
+  <section class="login" id="vLogin" hidden>
+    <form class="login-card" id="fLogin" novalidate>
+      <div class="brand"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0679a"/><stop offset="1" stop-color="#b40f55"/></linearGradient></defs><rect width="64" height="64" rx="18" fill="url(#lg1)"/><path d="M32 13c3 9 9 14 19 16-10 2-16 8-19 18-3-10-9-16-19-18 10-2 16-7 19-16z" fill="#fff"/></svg><div><span data-brand>GlowDigital</span><small>Intelligence Hub · Admin</small></div></div>
+      <div><h1 style="font-size:22px;font-weight:800">Masuk ke dashboard</h1><p class="muted" style="margin:4px 0 0">Laporan klik, pesanan, CRM, dan notifikasi WhatsApp.</p></div>
+      <div class="banner warn" id="loginPesan" hidden role="alert"><span class="ik"><span class="ms">info</span></span><div><b id="loginPesanT"></b></div></div>
+      <div class="fld"><label for="lUser">Nama pengguna</label><div class="inp-ikon"><span class="ms">person</span><input class="inp" id="lUser" autocomplete="username" required autocapitalize="none" spellcheck="false"></div></div>
+      <div class="fld"><label for="lPass">Kata sandi</label><div class="inp-ikon"><span class="ms">lock</span><input class="inp" id="lPass" type="password" autocomplete="current-password" required style="padding-right:44px"><button type="button" id="lLihat" aria-label="Tampilkan sandi" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);width:32px;height:32px;display:grid;place-items:center;color:var(--muted)"><span class="ms" style="position:static;transform:none">visibility</span></button></div></div>
+      <button class="btn btn-p" type="submit" id="lBtn" style="min-height:48px"><span>Masuk</span><span class="ms">arrow_forward</span></button>
+      <p class="muted" style="margin:0;font-size:12.5px" id="loginInfo">Lupa sandi? Jalankan <b>resetAksesAdmin()</b> di editor Apps Script.</p>
+    </form>
+  </section>
+
+  <!-- APLIKASI -->
+  <div class="app" id="vApp" hidden>
+    <aside class="side" id="side" aria-label="Navigasi admin">
+      <div class="brand"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0679a"/><stop offset="1" stop-color="#b40f55"/></linearGradient></defs><rect width="64" height="64" rx="18" fill="url(#lg2)"/><path d="M32 13c3 9 9 14 19 16-10 2-16 8-19 18-3-10-9-16-19-18 10-2 16-7 19-16z" fill="#fff"/></svg><div><span data-brand>GlowDigital</span><small>Intelligence Hub</small></div></div>
+      <nav id="nav">
+        <span class="lbl">Analitik</span>
+        <a href="#laporan" data-p="laporan"><span class="ms">insights</span>Laporan Klik</a>
+        <a href="#kampanye" data-p="kampanye"><span class="ms">campaign</span>Link Kampanye</a>
+        <a href="#pesanan" data-p="pesanan"><span class="ms">shopping_cart</span>Pesanan<span class="badge" id="bBaru" hidden></span></a>
+        <span class="lbl">Pelanggan</span>
+        <a href="#crm" data-p="crm"><span class="ms">group</span>CRM Kontak</a>
+        <a href="#wa" data-p="wa"><span class="ms">forum</span>WhatsApp & Notifikasi</a>
+        <span class="lbl">Sistem</span>
+        <a href="#konten" data-p="konten"><span class="ms">edit_note</span>Konten & Cache</a>
+        <a href="#migrasi" data-p="migrasi"><span class="ms">sync_alt</span>Import & Migrasi</a>
+        <a href="#pengaturan" data-p="pengaturan"><span class="ms">settings</span>Pengaturan & Keamanan</a>
+      </nav>
+      <div class="side-foot"><a href="./" target="_blank" rel="noopener"><span class="ms">storefront</span>Lihat Landing Page</a></div>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+    <div class="main">
+      <header class="top">
+        <button class="ham" id="ham" aria-label="Buka menu" aria-controls="side" aria-expanded="false"><span class="ms">menu</span></button>
+        <h1 id="judul">Laporan Klik</h1>
+        <span class="sp"></span>
+        <button class="btn btn-n btn-s" id="btnSegar" title="Ambil data terbaru dari Google Sheets"><span class="ms">refresh</span><span class="sr">Segarkan</span></button>
+        <div class="akun">
+          <button id="akunBtn" aria-haspopup="true" aria-expanded="false"><span id="akunNama">admin</span><span class="av"><span class="ms">person</span></span></button>
+          <div class="menu" id="akunMenu" hidden>
+            <a href="#pengaturan"><span class="ms">key</span>Ganti sandi</a>
+            <button type="button" id="btnLogout"><span class="ms">logout</span>Keluar</button>
+          </div>
+        </div>
+      </header>
+      <main class="page" id="page" tabindex="-1"></main>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div id="lapisan"></div>
+
+  <script src="js/config.js?v=1.0.0"></script>
+  <script src="js/api.js?v=1.0.0"></script>
+  <script src="js/admin.js?v=1.0.0" defer></script>
+</body>
+</html>
